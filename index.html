@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Western Graphic Design — Studio créatif</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1A1A17;
+    --cream:#F4F1EA;
+    --paper:#FFFFFF;
+    --rust:#C75B39;
+    --gold:#B8923C;
+    --sage:#5C6B4F;
+    --line:rgba(26,26,23,0.14);
+    --line-soft:rgba(26,26,23,0.08);
+    --mono:'Space Grotesk', sans-serif;
+    --display:'Fraunces', serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:var(--mono);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+  @media(max-width:720px){.wrap{padding:0 20px;}}
+
+  /* ===== NAV ===== */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(244,241,234,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line-soft);
+  }
+  nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:20px 0;
+  }
+  .logo-mark{
+    font-family:var(--display);
+    font-weight:600;
+    font-size:19px;
+    letter-spacing:-0.01em;
+  }
+  .logo-mark span{color:var(--rust);}
+  .nav-links{display:flex;gap:36px;font-size:13px;letter-spacing:0.03em;}
+  .nav-links a{opacity:0.7;transition:opacity .2s;}
+  .nav-links a:hover{opacity:1;}
+  .nav-cta{
+    font-size:13px;background:var(--ink);color:var(--cream);
+    padding:10px 20px;border-radius:2px;letter-spacing:0.02em;
+  }
+  @media(max-width:720px){.nav-links{display:none;}}
+
+  /* ===== HERO ===== */
+  .hero{
+    padding:100px 0 90px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-grid{
+    position:relative;
+    z-index:2;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+  }
+  .hero-eyebrow{
+    font-size:12px;letter-spacing:0.12em;text-transform:uppercase;
+    color:var(--rust);font-weight:500;margin-bottom:24px;
+    display:flex;align-items:center;gap:10px;
+    justify-content:center;
+  }
+  .hero-eyebrow::before,.hero-eyebrow::after{content:'';width:28px;height:1px;background:var(--rust);}
+  h1{
+    font-family:var(--display);
+    font-weight:600;
+    font-size:clamp(34px,5.4vw,64px);
+    line-height:1.04;
+    letter-spacing:-0.025em;
+    max-width:780px;
+  }
+  h1 em{font-style:italic;font-weight:400;color:var(--rust);}
+  .hero-sub{
+    margin-top:24px;font-size:16px;max-width:520px;opacity:0.72;line-height:1.65;
+  }
+  .hero-actions{margin-top:34px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;justify-content:center;}
+  .btn-primary{
+    background:var(--ink);color:var(--cream);padding:15px 28px;
+    font-size:14px;letter-spacing:0.02em;border-radius:2px;
+    display:inline-flex;align-items:center;gap:8px;
+    transition:transform .2s, background .2s;
+  }
+  .btn-primary:hover{background:var(--rust);transform:translateY(-1px);}
+  .btn-ghost{
+    font-size:14px;border-bottom:1px solid var(--ink);padding-bottom:2px;
+  }
+
+  /* ===== Animated gradient backdrop (suit la slide active) ===== */
+  .hero-backdrop{
+    position:absolute;inset:0;z-index:0;
+    background:radial-gradient(ellipse 70% 50% at 50% 0%, var(--bg-a, #DCEAD2) 0%, var(--cream) 70%);
+    animation:bgCycle 16s ease-in-out infinite;
+  }
+  @keyframes bgCycle{
+    0%,21%  { --bg-a:#DCEAD2; }
+    25%,46% { --bg-a:#F3E3CC; }
+    50%,71% { --bg-a:#D6E6F0; }
+    75%,96% { --bg-a:#F2D9DD; }
+    100%    { --bg-a:#DCEAD2; }
+  }
+
+  /* ===== Floating showcase card (carte unique, pleine largeur) ===== */
+  .showcase-full{
+    position:relative;z-index:2;
+    width:100%;
+    margin-top:56px;
+    padding:0 32px;
+  }
+  @media(max-width:720px){.showcase-full{padding:0 20px;}}
+
+  .showcase{
+    max-width:1400px;
+    margin:0 auto;
+  }
+  .showcase-title{
+    font-family:var(--display);
+    font-weight:600;
+    font-size:clamp(20px,2.6vw,30px);
+    margin-bottom:24px;
+    height:38px;
+    position:relative;
+  }
+  .showcase-title span{
+    position:absolute;left:0;right:0;
+    opacity:0;
+    transform:translateY(8px);
+    animation:titleCycle 24s ease-in-out infinite;
+  }
+  .showcase-title span:nth-child(1){animation-delay:0s;}
+  .showcase-title span:nth-child(2){animation-delay:4s;}
+  .showcase-title span:nth-child(3){animation-delay:8s;}
+  .showcase-title span:nth-child(4){animation-delay:12s;}
+  .showcase-title span:nth-child(5){animation-delay:16s;}
+  .showcase-title span:nth-child(6){animation-delay:20s;}
+  @keyframes titleCycle{
+    0%{opacity:0;transform:translateY(8px);}
+    2.5%,14%{opacity:1;transform:translateY(0);}
+    18%{opacity:0;transform:translateY(-8px);}
+    100%{opacity:0;}
+  }
+
+  .showcase-frame{
+    position:relative;
+    border-radius:18px;
+    padding:16px;
+    background:var(--paper);
+    box-shadow:0 40px 80px -24px rgba(26,26,23,0.24), 0 2px 8px rgba(26,26,23,0.06);
+    border:1px solid rgba(26,26,23,0.06);
+  }
+  .showcase-inner{
+    position:relative;
+    width:100%;
+    aspect-ratio:16/10;
+    border-radius:11px;
+    overflow:hidden;
+    background:var(--ink);
+  }
+  @media(max-width:720px){
+    .showcase-inner{aspect-ratio:3/4;}
+  }
+  .showcase-slide{
+    position:absolute;inset:0;
+    display:flex;align-items:center;justify-content:center;
+    opacity:0;
+    animation:slideCycle 24s ease-in-out infinite;
+  }
+  .showcase-slide:nth-child(1){animation-delay:0s;}
+  .showcase-slide:nth-child(2){animation-delay:4s;}
+  .showcase-slide:nth-child(3){animation-delay:8s;}
+  .showcase-slide:nth-child(4){animation-delay:12s;}
+  .showcase-slide:nth-child(5){animation-delay:16s;}
+  .showcase-slide:nth-child(6){animation-delay:20s;}
+  @keyframes slideCycle{
+    0%{opacity:0;}
+    2%,14%{opacity:1;}
+    19%{opacity:0;}
+    100%{opacity:0;}
+  }
+  .showcase-mark{
+    font-family:var(--display);font-style:italic;font-size:13px;
+    position:absolute;top:16px;left:18px;color:rgba(244,241,234,0.75);
+    z-index:2;
+    text-shadow:0 1px 3px rgba(0,0,0,0.4);
+  }
+  .showcase-icon{width:54px;height:54px;opacity:0.85;}
+  .showcase-icon svg{width:100%;height:100%;}
+  .showcase-img{
+    width:100%;height:100%;object-fit:contain;object-position:center;
+  }
+
+  .s1{background:
+      radial-gradient(circle at 75% 20%, rgba(92,107,79,0.55) 0%, transparent 45%),
+      repeating-linear-gradient(45deg, rgba(244,241,234,0.06) 0 2px, transparent 2px 16px),
+      var(--ink);}
+  .s2{background:
+      linear-gradient(135deg, rgba(184,146,60,0.5) 0%, transparent 55%),
+      repeating-radial-gradient(circle at 20% 80%, rgba(244,241,234,0.07) 0 1px, transparent 1px 13px),
+      #20211C;}
+  .s3{background:
+      conic-gradient(from 200deg at 30% 30%, rgba(105,144,168,0.55), transparent 40%),
+      repeating-linear-gradient(90deg, rgba(244,241,234,0.06) 0 1px, transparent 1px 22px),
+      var(--ink);}
+  .s4{background:
+      radial-gradient(ellipse at 20% 20%, rgba(199,91,57,0.45) 0%, transparent 50%),
+      radial-gradient(ellipse at 85% 75%, rgba(184,146,60,0.3) 0%, transparent 45%),
+      #1E1D19;}
+
+  .showcase-dots{display:flex;gap:7px;justify-content:center;margin-top:22px;}
+  .showcase-dots i{
+    width:5px;height:5px;border-radius:50%;background:var(--ink);opacity:0.18;
+    animation:dotCycle 24s ease-in-out infinite;
+  }
+  .showcase-dots i:nth-child(1){animation-delay:0s;}
+  .showcase-dots i:nth-child(2){animation-delay:4s;}
+  .showcase-dots i:nth-child(3){animation-delay:8s;}
+  .showcase-dots i:nth-child(4){animation-delay:12s;}
+  .showcase-dots i:nth-child(5){animation-delay:16s;}
+  .showcase-dots i:nth-child(6){animation-delay:20s;}
+  @keyframes dotCycle{
+    0%{opacity:0.18;width:5px;}
+    2%,14%{opacity:1;width:18px;border-radius:3px;}
+    19%{opacity:0.18;width:5px;border-radius:50%;}
+    100%{opacity:0.18;}
+  }
+
+  @media(prefers-reduced-motion:reduce){
+    .hero-backdrop,.showcase-title span,.showcase-slide,.showcase-dots i{animation:none;}
+    .showcase-title span:nth-child(1),.showcase-slide:nth-child(1){opacity:1;}
+    .showcase-dots i:nth-child(1){opacity:1;width:18px;}
+  }
+
+  /* stat strip */
+  .stat-strip{
+    position:relative;z-index:2;
+    display:flex;gap:0;margin-top:80px;border-top:1px solid var(--line);
+  }
+  .stat{
+    flex:1;padding:24px 24px 0;border-right:1px solid var(--line);
+  }
+  .stat:last-child{border-right:none;}
+  .stat-num{font-family:var(--display);font-size:32px;font-weight:600;}
+  .stat-label{font-size:12px;opacity:0.6;margin-top:4px;letter-spacing:0.02em;}
+  @media(max-width:720px){
+    .stat-strip{flex-wrap:wrap;}
+    .stat{flex:1 1 50%;border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:0;}
+    .showcase-title{font-size:18px;}
+  }
+
+  /* ===== SECTION LABEL ===== */
+  .section-label{
+    font-size:12px;letter-spacing:0.12em;text-transform:uppercase;
+    color:var(--rust);font-weight:500;margin-bottom:14px;
+  }
+  .section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:48px;gap:24px;flex-wrap:wrap;}
+  h2{font-family:var(--display);font-size:clamp(28px,4vw,44px);font-weight:600;letter-spacing:-0.02em;max-width:560px;}
+  .section-desc{font-size:14px;opacity:0.65;max-width:320px;line-height:1.6;}
+
+  /* ===== SERVICES ===== */
+  .services{padding:100px 0;border-top:1px solid var(--line);}
+  .service-list{border-top:1px solid var(--line);}
+  .service-row{
+    display:grid;grid-template-columns:60px 1fr 200px 140px;
+    align-items:center;gap:24px;
+    padding:28px 0;border-bottom:1px solid var(--line);
+    transition:padding-left .25s;
+  }
+  .service-row:hover{padding-left:12px;background:rgba(26,26,23,0.02);}
+  .service-num{font-family:var(--display);font-size:14px;opacity:0.4;}
+  .service-name{font-family:var(--display);font-size:22px;font-weight:500;}
+  .service-tags{font-size:12px;opacity:0.55;}
+  .service-price{font-size:14px;text-align:right;font-weight:500;}
+  @media(max-width:720px){
+    .service-row{grid-template-columns:32px 1fr;}
+    .service-tags,.service-price{grid-column:2;text-align:left;margin-top:-8px;}
+  }
+
+  /* ===== PORTFOLIO GRID ===== */
+  .portfolio{padding:100px 0;border-top:1px solid var(--line);}
+  .filter-tabs{display:flex;gap:8px;margin-bottom:48px;flex-wrap:wrap;}
+  .filter-tab{
+    font-size:13px;padding:9px 18px;border:1px solid var(--line);
+    border-radius:99px;opacity:0.65;cursor:pointer;transition:all .2s;background:transparent;font-family:var(--mono);
+  }
+  .filter-tab.active{background:var(--ink);color:var(--cream);opacity:1;border-color:var(--ink);}
+
+  .grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
+  }
+  @media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:560px){.grid{grid-template-columns:1fr;}}
+
+  .card{
+    background:var(--paper);border:1px solid var(--line);
+    overflow:hidden;border-radius:3px;
+  }
+  .ph{
+    aspect-ratio:4/3;
+    background:
+      repeating-linear-gradient(135deg, rgba(26,26,23,0.05) 0 2px, transparent 2px 14px),
+      var(--cream);
+    border-bottom:1px solid var(--line);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+    color:var(--ink);opacity:0.45;position:relative;
+  }
+  .ph svg{width:30px;height:30px;opacity:0.7;}
+  .ph-label{font-size:11px;letter-spacing:0.05em;text-transform:uppercase;}
+  .ph-tag{
+    position:absolute;top:10px;left:10px;
+    font-size:10px;background:var(--rust);color:#fff;
+    padding:3px 9px;border-radius:99px;letter-spacing:0.03em;opacity:0.9;
+  }
+  .card-body{padding:18px 20px 22px;}
+  .card-title{font-family:var(--display);font-size:17px;font-weight:500;}
+  .card-meta{font-size:12px;opacity:0.55;margin-top:4px;}
+
+  .replace-hint{
+    margin-top:36px;padding:18px 22px;border:1px dashed var(--line);border-radius:4px;
+    font-size:13px;opacity:0.7;display:flex;gap:12px;align-items:flex-start;line-height:1.6;
+  }
+  .replace-hint b{color:var(--rust);opacity:1;}
+
+  /* ===== PROCESS ===== */
+  .process{padding:100px 0;border-top:1px solid var(--line);}
+  .process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:48px;}
+  .process-step{background:var(--cream);padding:32px 28px;}
+  .process-step .pnum{font-family:var(--display);font-size:13px;color:var(--rust);margin-bottom:18px;}
+  .process-step h3{font-family:var(--display);font-size:19px;font-weight:500;margin-bottom:10px;}
+  .process-step p{font-size:13px;opacity:0.65;line-height:1.55;}
+  @media(max-width:900px){.process-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:560px){.process-grid{grid-template-columns:1fr;}}
+
+  /* ===== TESTIMONIAL PLACEHOLDER ===== */
+  .testi{padding:100px 0;border-top:1px solid var(--line);}
+  .testi-card{
+    background:var(--ink);color:var(--cream);
+    padding:64px 56px;border-radius:4px;position:relative;
+    display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;
+  }
+  .testi-quote{font-family:var(--display);font-style:italic;font-size:clamp(20px,2.6vw,28px);line-height:1.45;font-weight:400;}
+  .testi-name{margin-top:24px;font-size:13px;opacity:0.6;}
+  .testi-ph{
+    width:84px;height:84px;border-radius:50%;border:1px dashed rgba(244,241,234,0.35);
+    display:flex;align-items:center;justify-content:center;font-size:10px;opacity:0.5;text-align:center;flex-shrink:0;
+  }
+  @media(max-width:720px){.testi-card{grid-template-columns:1fr;padding:40px 28px;}.testi-ph{display:none;}}
+
+  /* ===== CONTACT / FOOTER CTA ===== */
+  .cta{padding:120px 0 100px;border-top:1px solid var(--line);text-align:center;}
+  .cta h2{max-width:none;margin:0 auto 20px;}
+  .cta p{font-size:15px;opacity:0.65;max-width:420px;margin:0 auto 40px;}
+
+  footer{border-top:1px solid var(--line);padding:36px 0;}
+  .foot-row{display:flex;justify-content:space-between;align-items:center;font-size:12px;opacity:0.55;flex-wrap:wrap;gap:12px;}
+  .foot-links{display:flex;gap:20px;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <div class="logo-mark">Western<span>·</span>Graphic</div>
+      <div class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#portfolio">Réalisations</a>
+        <a href="#process">Méthode</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <a class="nav-cta" href="https://wa.me/22993077242" target="_blank" rel="noopener">Devis gratuit</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-backdrop"></div>
+  <div class="wrap">
+    <div class="hero-grid">
+
+      <div class="hero-eyebrow">Studio créatif basé à Cotonou</div>
+      <h1>Des visuels qui <em>vendent</em>, pas juste qui décorent.</h1>
+      <p class="hero-sub">Western Graphic Design crée logos, CV, business plans et contenus digitaux pour les entrepreneurs et entreprises qui veulent se démarquer,livrés vite, sans compromis sur la qualité.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="https://wa.me/22993077242" target="_blank" rel="noopener">
+          Discuter de mon projet →
+        </a>
+        <a class="btn-ghost" href="#portfolio">Voir les réalisations</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="showcase-full">
+    <div class="showcase">
+      <div class="showcase-title">
+        <span>Affiche — Walk With Nike</span>
+        <span>Pack réseaux — Perfect Cooking</span>
+        <span>Affiche — Lemonade</span>
+        <span>Affiche — Chocolate</span>
+        <span>Affiche — Clean Fades Barber</span>
+        <span>Affiche — Comfy Wear</span>
+      </div>
+
+      <div class="showcase-frame">
+        <div class="showcase-inner">
+          <div class="showcase-slide s1">
+            <span class="showcase-mark">01</span>
+            <img src="images/poster-nike.jpg" alt="Affiche Walk With Nike" class="showcase-img">
+          </div>
+          <div class="showcase-slide s2">
+            <span class="showcase-mark">02</span>
+            <img src="images/poster-perfectcooking.jpg" alt="Pack réseaux sociaux Perfect Cooking" class="showcase-img">
+          </div>
+          <div class="showcase-slide s3">
+            <span class="showcase-mark">03</span>
+            <img src="images/poster-lemonade.jpg" alt="Affiche Lemonade" class="showcase-img">
+          </div>
+          <div class="showcase-slide s4">
+            <span class="showcase-mark">04</span>
+            <img src="images/poster-chocolate.jpg" alt="Affiche Chocolate Perfect Cooking" class="showcase-img">
+          </div>
+          <div class="showcase-slide s5">
+            <span class="showcase-mark">05</span>
+            <img src="images/poster-cleanfades.jpg" alt="Affiche Clean Fades Barber" class="showcase-img">
+          </div>
+          <div class="showcase-slide s6">
+            <span class="showcase-mark">06</span>
+            <img src="images/poster-comfywear.jpg" alt="Affiche Comfy Wear" class="showcase-img">
+          </div>
+        </div>
+      </div>
+
+      <div class="showcase-dots"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="stat-strip">
+        <div class="stat"><div class="stat-num">24h</div><div class="stat-label">Délai moyen de livraison</div></div>
+        <div class="stat"><div class="stat-num">5+</div><div class="stat-label">Services proposés</div></div>
+        <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Satisfaction visée</div></div>
+        <div class="stat"><div class="stat-num">2</div><div class="stat-label">Révisions incluses</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-label">Ce que je fais</div>
+        <h2>Cinq services, un seul objectif : votre image professionnelle.</h2>
+      </div>
+      <p class="section-desc">Chaque prestation est pensée pour être utilisable immédiatement, pas de fichier à moitié fini.</p>
+    </div>
+
+    <div class="service-list">
+      <div class="service-row">
+        <div class="service-num">01</div>
+        <div class="service-name">Logo &amp; identité visuelle</div>
+        <div class="service-tags">Logo · Variantes couleur · Charte</div>
+        <div class="service-price">Dès 15 000 F</div>
+      </div>
+      <div class="service-row">
+        <div class="service-num">02</div>
+        <div class="service-name">CV &amp; candidature</div>
+        <div class="service-tags">CV pro · Lettre de motivation</div>
+        <div class="service-price">Dès 5 000 F</div>
+      </div>
+      <div class="service-row">
+        <div class="service-num">03</div>
+        <div class="service-name">Business plan</div>
+        <div class="service-tags">Étude · Rédaction · Mise en page</div>
+        <div class="service-price">Dès 30 000 F</div>
+      </div>
+      <div class="service-row">
+        <div class="service-num">04</div>
+        <div class="service-name">Contenu réseaux sociaux</div>
+        <div class="service-tags">Posts · Bannières · Flyers</div>
+        <div class="service-price">Dès 10 000 F</div>
+      </div>
+      <div class="service-row">
+        <div class="service-num">05</div>
+        <div class="service-name">Traduction de documents</div>
+        <div class="service-tags">FR ↔ EN · Mise en forme incluse</div>
+        <div class="service-price">Dès 5 000 F</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="portfolio" id="portfolio">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-label">Réalisations</div>
+        <h2>Un aperçu des derniers projets livrés.</h2>
+      </div>
+      <p class="section-desc"></p>
+    </div>
+
+    <div class="filter-tabs">
+      <button class="filter-tab active">Tout</button>
+      <button class="filter-tab">Logos</button>
+      <button class="filter-tab">CV</button>
+      <button class="filter-tab">Business plans</button>
+      <button class="filter-tab">Réseaux sociaux</button>
+    </div>
+
+    <div class="grid">
+
+      <div class="card">
+        <div class="ph card-img" style="opacity:1;background:#F8F6F1;">
+          <img src="images/logo-larana.jpg" alt="Logo Larana Fashion Store" style="width:100%;height:100%;object-fit:contain;padding:18px;">
+        </div>
+        <div class="card-body">
+          <div class="card-title">Logo — Larana Fashion Store</div>
+          <div class="card-meta">Identité visuelle · 2026</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="ph card-img" style="opacity:1;">
+          <img src="images/cv-myrabelle.jpg" alt="CV professionnel Myrabelle Avavi" style="width:100%;height:100%;object-fit:cover;object-position:top center;">
+        </div>
+        <div class="card-body">
+          <div class="card-title">CV professionnel — Myrabelle A.</div>
+          <div class="card-meta">Candidature · 2026</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="ph card-img" style="opacity:1;">
+          <img src="images/businessplan-commercity.jpg" alt="Business plan CommerCity" style="width:100%;height:100%;object-fit:cover;object-position:top center;">
+        </div>
+        <div class="card-body">
+          <div class="card-title">Business plan — CommerCity</div>
+          <div class="card-meta">Étude complète · 2026</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="ph card-img" style="opacity:1;">
+          <img src="images/post-anniversaire.jpg" alt="Visuel réseaux sociaux anniversaire" style="width:100%;height:100%;object-fit:cover;object-position:top center;">
+        </div>
+        <div class="card-body">
+          <div class="card-title">Visuel réseaux sociaux — Anniversaire</div>
+          <div class="card-meta">Contenu digital · 2026</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="ph card-img" style="opacity:1;background:#F8F6F1;">
+          <img src="images/logo-lescantiques.png" alt="Logo Les Cantiques" style="width:100%;height:100%;object-fit:contain;padding:18px;">
+        </div>
+        <div class="card-body">
+          <div class="card-title">Logo — Les Cantiques</div>
+          <div class="card-meta">Identité visuelle · 2026</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="ph card-img" style="opacity:1;">
+          <img src="images/poster-womenssports.jpg" alt="Affiche Women's Sports Basketball Edition" style="width:100%;height:100%;object-fit:cover;object-position:top center;">
+        </div>
+        <div class="card-body">
+          <div class="card-title">Affiche — Women's Sports</div>
+          <div class="card-meta">Communication · 2026</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="replace-hint">
+      <span>💡</span>
+      <span><b>Note :</b> envoie-moi d'autres réalisations quand tu les as et je les ajoute directement à la galerie.</span>
+    </div>
+  </div>
+</section>
+
+<section class="process" id="process">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-label">Méthode</div>
+        <h2>Du premier message au fichier livré.</h2>
+      </div>
+    </div>
+
+    <div class="process-grid">
+      <div class="process-step">
+        <div class="pnum">01 — Échange</div>
+        <h3>On définit le besoin</h3>
+        <p>Tu m'expliques ton projet sur WhatsApp, je te propose un devis clair sous 1h.</p>
+      </div>
+      <div class="process-step">
+        <div class="pnum">02 — Acompte</div>
+        <h3>50% pour démarrer</h3>
+        <p>Un acompte simple via Mobile Money sécurise le projet pour les deux parties.</p>
+      </div>
+      <div class="process-step">
+        <div class="pnum">03 — Création</div>
+        <h3>Je conçois ton livrable</h3>
+        <p>Réalisation soignée, basée sur tes références et ton secteur d'activité.</p>
+      </div>
+      <div class="process-step">
+        <div class="pnum">04 — Livraison</div>
+        <h3>Fichiers + révisions</h3>
+        <p>Tu reçois ton livrable final, avec les ajustements inclus si besoin.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testi">
+  <div class="wrap">
+    <div class="testi-card">
+      <div>
+        <p class="testi-quote">« Trop fort, j'adore le service. »</p>
+        <div class="testi-name"> AGBO Bernard, Propriétaire de Bar Restaurant a Cotonou·</div>
+      </div>
+      <div class="testi-ph">Photo<br>client</div>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="contact">
+  <div class="wrap">
+    <div class="section-label" style="justify-content:center;display:flex;">On démarre ?</div>
+    <h2>Un projet en tête ?<br>Écris-moi, on en parle.</h2>
+    <p>Réponse sous 1h en journée · Devis gratuit · Premier échange sans engagement.</p>
+    <a class="btn-primary" href="https://wa.me/22993077242" target="_blank" rel="noopener">
+      Contacter sur WhatsApp →
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-row">
+      <div>© 2026 Western Graphic Design — Cotonou, Bénin</div>
+      <div class="foot-links">
+        <a href="https://wa.me/22993077242" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="#services">Services</a>
+        <a href="#portfolio">Réalisations</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
